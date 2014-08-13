@@ -11,10 +11,10 @@
 		B005190F199BDB2E0070659F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B005190D199BDB2E0070659F /* Main.storyboard */; };
 		B0051911199BDB2E0070659F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0051910199BDB2E0070659F /* Images.xcassets */; };
 		B005191D199BDB2E0070659F /* AVFoundation_RecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005191C199BDB2E0070659F /* AVFoundation_RecorderTests.swift */; };
-		B0051927199BDB4A0070659F /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0051926199BDB4A0070659F /* RecorderViewController.swift */; };
 		B0051929199BDECB0070659F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B0051928199BDECB0070659F /* README.md */; };
 		B005192B199BDFAC0070659F /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */; };
 		B005192D199BE0F40070659F /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */; };
+		B075BD97199C268800CDA3AB /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075BD96199C268800CDA3AB /* RecorderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +36,10 @@
 		B0051916199BDB2E0070659F /* AVFoundation RecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AVFoundation RecorderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B005191B199BDB2E0070659F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B005191C199BDB2E0070659F /* AVFoundation_RecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundation_RecorderTests.swift; sourceTree = "<group>"; };
-		B0051926199BDB4A0070659F /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecorderViewController.swift; path = ../RecorderViewController.swift; sourceTree = "<group>"; };
 		B0051928199BDECB0070659F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
 		B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
+		B075BD96199C268800CDA3AB /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 		B0051906199BDB2E0070659F /* AVFoundation Recorder */ = {
 			isa = PBXGroup;
 			children = (
-				B0051926199BDB4A0070659F /* RecorderViewController.swift */,
+				B075BD96199C268800CDA3AB /* RecorderViewController.swift */,
 				B0051909199BDB2E0070659F /* AppDelegate.swift */,
 				B005190D199BDB2E0070659F /* Main.storyboard */,
 				B0051910199BDB2E0070659F /* Images.xcassets */,
@@ -218,9 +218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0051929199BDECB0070659F /* README.md in Sources */,
-				B0051927199BDB4A0070659F /* RecorderViewController.swift in Sources */,
 				B005192B199BDFAC0070659F /* RecordingsCollectionViewController.swift in Sources */,
 				B005190A199BDB2E0070659F /* AppDelegate.swift in Sources */,
+				B075BD97199C268800CDA3AB /* RecorderViewController.swift in Sources */,
 				B005192D199BE0F40070659F /* RecordingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +409,7 @@
 				B0051922199BDB2E0070659F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0051923199BDB2E0070659F /* Build configuration list for PBXNativeTarget "AVFoundation RecorderTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +418,7 @@
 				B0051925199BDB2E0070659F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
