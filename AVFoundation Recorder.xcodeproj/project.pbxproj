@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		B005190A199BDB2E0070659F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0051909199BDB2E0070659F /* AppDelegate.swift */; };
-		B005190C199BDB2E0070659F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005190B199BDB2E0070659F /* ViewController.swift */; };
 		B005190F199BDB2E0070659F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B005190D199BDB2E0070659F /* Main.storyboard */; };
 		B0051911199BDB2E0070659F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0051910199BDB2E0070659F /* Images.xcassets */; };
 		B005191D199BDB2E0070659F /* AVFoundation_RecorderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005191C199BDB2E0070659F /* AVFoundation_RecorderTests.swift */; };
+		B0051927199BDB4A0070659F /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0051926199BDB4A0070659F /* RecorderViewController.swift */; };
+		B0051929199BDECB0070659F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B0051928199BDECB0070659F /* README.md */; };
+		B005192B199BDFAC0070659F /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */; };
+		B005192D199BE0F40070659F /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,12 +31,15 @@
 		B0051904199BDB2E0070659F /* AVFoundation Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AVFoundation Recorder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0051908199BDB2E0070659F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0051909199BDB2E0070659F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B005190B199BDB2E0070659F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B005190E199BDB2E0070659F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0051910199BDB2E0070659F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B0051916199BDB2E0070659F /* AVFoundation RecorderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AVFoundation RecorderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B005191B199BDB2E0070659F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B005191C199BDB2E0070659F /* AVFoundation_RecorderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFoundation_RecorderTests.swift; sourceTree = "<group>"; };
+		B0051926199BDB4A0070659F /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecorderViewController.swift; path = ../RecorderViewController.swift; sourceTree = "<group>"; };
+		B0051928199BDECB0070659F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
+		B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,7 @@
 		B00518FB199BDB2E0070659F = {
 			isa = PBXGroup;
 			children = (
+				B0051928199BDECB0070659F /* README.md */,
 				B0051906199BDB2E0070659F /* AVFoundation Recorder */,
 				B0051919199BDB2E0070659F /* AVFoundation RecorderTests */,
 				B0051905199BDB2E0070659F /* Products */,
@@ -75,11 +82,13 @@
 		B0051906199BDB2E0070659F /* AVFoundation Recorder */ = {
 			isa = PBXGroup;
 			children = (
+				B0051926199BDB4A0070659F /* RecorderViewController.swift */,
 				B0051909199BDB2E0070659F /* AppDelegate.swift */,
-				B005190B199BDB2E0070659F /* ViewController.swift */,
 				B005190D199BDB2E0070659F /* Main.storyboard */,
 				B0051910199BDB2E0070659F /* Images.xcassets */,
 				B0051907199BDB2E0070659F /* Supporting Files */,
+				B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */,
+				B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */,
 			);
 			path = "AVFoundation Recorder";
 			sourceTree = "<group>";
@@ -208,8 +217,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B005190C199BDB2E0070659F /* ViewController.swift in Sources */,
+				B0051929199BDECB0070659F /* README.md in Sources */,
+				B0051927199BDB4A0070659F /* RecorderViewController.swift in Sources */,
+				B005192B199BDFAC0070659F /* RecordingsCollectionViewController.swift in Sources */,
 				B005190A199BDB2E0070659F /* AppDelegate.swift in Sources */,
+				B005192D199BE0F40070659F /* RecordingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
