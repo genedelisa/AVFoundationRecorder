@@ -37,6 +37,7 @@ class RecorderViewController: UIViewController {
         
         stopButton.enabled = false
         playButton.enabled = false
+        askForNotifications()
     }
     
     func updateAudioMeter(timer:NSTimer) {
@@ -292,14 +293,14 @@ extension RecorderViewController : AVAudioRecorderDelegate {
                 preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
                 println("keep was tapped")
-//                let tf = alert.textFields[0] as UITextField
-//                println(tf.text)
+                //                let tf = alert.textFields[0] as UITextField
+                //                println(tf.text)
             }))
             
-//            alert.addTextFieldWithConfigurationHandler({textfield in
-//                textfield.placeholder = "Enter a filename"
-//                textfield.text = "\(self.recorder.url)"
-//            })
+            //            alert.addTextFieldWithConfigurationHandler({textfield in
+            //                textfield.placeholder = "Enter a filename"
+            //                textfield.text = "\(self.recorder.url)"
+            //            })
             
             alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: {action in
                 println("delete was tapped")
@@ -312,8 +313,53 @@ extension RecorderViewController : AVAudioRecorderDelegate {
         error: NSError!) {
             println("\(error.localizedDescription)")
     }
+    
+    func askForNotifications() {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:"background:",
+            name:UIApplicationWillResignActiveNotification,
+            object:nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:"foreground:",
+            name:UIApplicationWillEnterForegroundNotification,
+            object:nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector:"routeChange:",
+            name:AVAudioSessionRouteChangeNotification,
+            object:nil)
+        
+        
+    }
+    func background(notification:NSNotification) {
+    }
+    
+    func foreground(notification:NSNotification) {
+    }
+    
+    func routeChange(notification:NSNotification) {
+        var info:NSObject = notification.userInfo as NSObject
+        //        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as UInt
+        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
+        var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
+        switch reason {
+        case AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw():
+            println("new device")
+        case AVAudioSessionRouteChangeReason.OldDeviceUnavailable.toRaw():
+            println("old device unavail")
+            //case AVAudioSessionRouteChangeReasonCategoryChange
+            //case AVAudioSessionRouteChangeReasonOverride
+            //case AVAudioSessionRouteChangeReasonWakeFromSleep
+            //case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory
+            
+        default:
+            println("something or other")
+        }
+    }
+    
 }
-
 
 // MARK: AVAudioPlayerDelegate
 extension RecorderViewController : AVAudioPlayerDelegate {
