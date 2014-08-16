@@ -67,18 +67,30 @@ class RecordingsCollectionViewController: UICollectionViewController {
         if rec.state != .Ended {
             return
         }
-        var cell = getCell(rec)
         
-        var alert = UIAlertController(title: "2x",
-            message: "2x",
-            preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
-            println("yes was tapped")
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
-            println("no was tapped")
-        }))
-        self.presentViewController(alert, animated:true, completion:nil)
+        var p = rec.locationInView(self.collectionView)
+        var indexPath = self.collectionView.indexPathForItemAtPoint(p)
+        if indexPath == nil {
+            NSLog("couldn't find index path");
+        } else {
+            var cell = self.collectionView.cellForItemAtIndexPath(indexPath)
+            NSLog("found cell at \(indexPath.row)")
+            askToRename(indexPath.row)
+        }
+        
+        
+        
+        
+        //        var alert = UIAlertController(title: "2x",
+        //            message: "2x",
+        //            preferredStyle: .Alert)
+        //        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
+        //            println("yes was tapped")
+        //        }))
+        //        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
+        //            println("no was tapped")
+        //        }))
+        //        self.presentViewController(alert, animated:true, completion:nil)
     }
     
     func longPress(rec:UILongPressGestureRecognizer) {
@@ -196,6 +208,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             println(e.localizedDescription)
         }
         self.recordings = files.filter( { (name: String) -> Bool in
+            //            name.hasPrefix("recording-"))
             return name.hasSuffix("m4a")
         })
     }
@@ -214,6 +227,45 @@ class RecordingsCollectionViewController: UICollectionViewController {
         self.presentViewController(alert, animated:true, completion:nil)
     }
     
+    func askToRename(row:Int) {
+        var recording = self.recordings[row]
+        
+        var alert = UIAlertController(title: "Rename",
+            message: "Rename Recording \(recording)?",
+            preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
+            println("yes was tapped \(self.recordings[row])")
+            let tf = alert.textFields[0] as UITextField
+            self.renameRecording(recording, to: tf.text.lastPathComponent)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
+            println("no was tapped")
+        }))
+        alert.addTextFieldWithConfigurationHandler({textfield in
+            textfield.placeholder = "Enter a filename"
+            textfield.text = "\(recording)"
+        })
+        self.presentViewController(alert, animated:true, completion:nil)
+    }
+    
+    func renameRecording(from:String, to:String) {
+        var docsDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        var f = docsDir + "/" + from
+        var t = docsDir + "/" + to
+        println("renaming file \(f) to \(t)")
+        var fileManager = NSFileManager.defaultManager()
+        fileManager.delegate = self
+        var error: NSError?
+        fileManager.moveItemAtPath(f, toPath: t, error: &error)
+        if let e = error {
+            println(e.localizedDescription)
+        }
+        dispatch_async(dispatch_get_main_queue(), {
+            self.listRecordings()
+            self.collectionView.reloadData()
+        })
+    }
+    
     func deleteRecording(filename:String) {
         var docsDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         //        var url = NSURL(fileURLWithPath: docsDir + "/" + filename)
@@ -221,6 +273,9 @@ class RecordingsCollectionViewController: UICollectionViewController {
         var fileManager = NSFileManager.defaultManager()
         var error: NSError?
         fileManager.removeItemAtPath(docsDir + "/" + filename, error: &error)
+        if let e = error {
+            println(e.localizedDescription)
+        }
         
         dispatch_async(dispatch_get_main_queue(), {
             self.listRecordings()
@@ -229,6 +284,15 @@ class RecordingsCollectionViewController: UICollectionViewController {
     }
     
     
+}
+
+extension RecordingsCollectionViewController: NSFileManagerDelegate {
+    func fileManager(fileManager: NSFileManager!,
+        shouldMoveItemAtURL srcURL: NSURL!,
+        toURL dstURL: NSURL!) -> Bool {
+            println("should move \(srcURL) to \(dstURL)")
+            return true
+    }
 }
 
 extension RecordingsCollectionViewController : UIGestureRecognizerDelegate {

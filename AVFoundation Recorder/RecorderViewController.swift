@@ -33,10 +33,9 @@ class RecorderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // setupRecorder()
-        
         stopButton.enabled = false
         playButton.enabled = false
+        setSessionPlayback()
         askForNotifications()
     }
     
@@ -334,9 +333,11 @@ extension RecorderViewController : AVAudioRecorderDelegate {
         
     }
     func background(notification:NSNotification) {
+        println("background")
     }
     
     func foreground(notification:NSNotification) {
+        println("foreground")
     }
     
     func routeChange(notification:NSNotification) {
@@ -344,6 +345,7 @@ extension RecorderViewController : AVAudioRecorderDelegate {
         //        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as UInt
         var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
         var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
+        println(description)
         switch reason {
         case AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw():
             println("new device")
