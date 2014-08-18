@@ -82,13 +82,13 @@
 		B0051906199BDB2E0070659F /* AVFoundation Recorder */ = {
 			isa = PBXGroup;
 			children = (
-				B075BD96199C268800CDA3AB /* RecorderViewController.swift */,
 				B0051909199BDB2E0070659F /* AppDelegate.swift */,
 				B005190D199BDB2E0070659F /* Main.storyboard */,
 				B0051910199BDB2E0070659F /* Images.xcassets */,
 				B0051907199BDB2E0070659F /* Supporting Files */,
-				B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */,
+				B075BD96199C268800CDA3AB /* RecorderViewController.swift */,
 				B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */,
+				B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */,
 			);
 			path = "AVFoundation Recorder";
 			sourceTree = "<group>";

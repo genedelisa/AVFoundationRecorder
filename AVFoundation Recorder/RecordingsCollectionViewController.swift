@@ -77,20 +77,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
             NSLog("found cell at \(indexPath.row)")
             askToRename(indexPath.row)
         }
-        
-        
-        
-        
-        //        var alert = UIAlertController(title: "2x",
-        //            message: "2x",
-        //            preferredStyle: .Alert)
-        //        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
-        //            println("yes was tapped")
-        //        }))
-        //        alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
-        //            println("no was tapped")
-        //        }))
-        //        self.presentViewController(alert, animated:true, completion:nil)
     }
     
     func longPress(rec:UILongPressGestureRecognizer) {

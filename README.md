@@ -4,7 +4,7 @@ An audio recorder using AVFoundation.
 
 ## Blog post for this example.
 
-[Blog post](http://www.rockhoppertech.com/blog/swift-avfoundation/)   
+[Blog post](http://www.rockhoppertech.com/blog/avfoundation-audio-recording-with-swift/)
 
 
 

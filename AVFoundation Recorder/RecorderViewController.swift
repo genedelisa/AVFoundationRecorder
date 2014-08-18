@@ -13,6 +13,8 @@ import AVFoundation
 
 Uses AVAudioRecorder to record a sound file and an AVAudioPlayer to play it back.
 
+:author: Gene De Lisa
+
 */
 class RecorderViewController: UIViewController {
     
@@ -56,8 +58,6 @@ class RecorderViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
         recorder = nil
         player = nil
     }
@@ -118,6 +118,7 @@ class RecorderViewController: UIViewController {
     @IBAction func play(sender: UIButton) {
         play()
     }
+    
     func play() {
         println("trying to play")
         if !recorder.recording {
@@ -136,28 +137,6 @@ class RecorderViewController: UIViewController {
         }
     }
     
-    //    func getFileName() -> String {
-    //        var format = NSDateFormatter()
-    //        format.dateFormat="yyyy-MM-dd-HH-mm"
-    //        var filename = "recording-\(format.stringFromDate(NSDate.date())).m4a"
-    //        println(filename)
-    //
-    //        // ios8 and later
-    //        var alert = UIAlertController(title: "Recorder",
-    //            message: "Enter a file name",
-    //            preferredStyle: .Alert)
-    //        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {action in
-    //            println("ok was tapped")
-    //            let tf = alert.textFields[0] as UITextField
-    //            println(tf.text)
-    //            filename = tf.text
-    //        }))
-    //        alert.addTextFieldWithConfigurationHandler({textfield in
-    //            textfield.placeholder = "Enter a filename"
-    //            textfield.text = "\(filename)"
-    //        })
-    //        self.presentViewController(alert, animated:true, completion:nil)
-    //    }
     
     func setupRecorder() {
         var format = NSDateFormatter()
@@ -274,45 +253,6 @@ class RecorderViewController: UIViewController {
         }
     }
     
-}
-
-// MARK: AVAudioRecorderDelegate
-extension RecorderViewController : AVAudioRecorderDelegate {
-    
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!,
-        successfully flag: Bool) {
-            println("finished recording \(flag)")
-            stopButton.enabled = false
-            playButton.enabled = true
-            recordButton.setTitle("Record", forState:.Normal)
-            
-            // ios8 and later
-            var alert = UIAlertController(title: "Recorder",
-                message: "Finished Recording",
-                preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
-                println("keep was tapped")
-                //                let tf = alert.textFields[0] as UITextField
-                //                println(tf.text)
-            }))
-            
-            //            alert.addTextFieldWithConfigurationHandler({textfield in
-            //                textfield.placeholder = "Enter a filename"
-            //                textfield.text = "\(self.recorder.url)"
-            //            })
-            
-            alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: {action in
-                println("delete was tapped")
-                self.recorder.deleteRecording()
-            }))
-            self.presentViewController(alert, animated:true, completion:nil)
-    }
-    
-    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!,
-        error: NSError!) {
-            println("\(error.localizedDescription)")
-    }
-    
     func askForNotifications() {
         
         NSNotificationCenter.defaultCenter().addObserver(self,
@@ -329,9 +269,8 @@ extension RecorderViewController : AVAudioRecorderDelegate {
             selector:"routeChange:",
             name:AVAudioSessionRouteChangeNotification,
             object:nil)
-        
-        
     }
+    
     func background(notification:NSNotification) {
         println("background")
     }
@@ -346,6 +285,7 @@ extension RecorderViewController : AVAudioRecorderDelegate {
         var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
         var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
         println(description)
+        
         switch reason {
         case AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw():
             println("new device")
@@ -361,6 +301,36 @@ extension RecorderViewController : AVAudioRecorderDelegate {
         }
     }
     
+}
+
+// MARK: AVAudioRecorderDelegate
+extension RecorderViewController : AVAudioRecorderDelegate {
+    
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!,
+        successfully flag: Bool) {
+            println("finished recording \(flag)")
+            stopButton.enabled = false
+            playButton.enabled = true
+            recordButton.setTitle("Record", forState:.Normal)
+            
+            // iOS8 and later
+            var alert = UIAlertController(title: "Recorder",
+                message: "Finished Recording",
+                preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
+                println("keep was tapped")
+            }))
+            alert.addAction(UIAlertAction(title: "Delete", style: .Default, handler: {action in
+                println("delete was tapped")
+                self.recorder.deleteRecording()
+            }))
+            self.presentViewController(alert, animated:true, completion:nil)
+    }
+    
+    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!,
+        error: NSError!) {
+            println("\(error.localizedDescription)")
+    }
 }
 
 // MARK: AVAudioPlayerDelegate
