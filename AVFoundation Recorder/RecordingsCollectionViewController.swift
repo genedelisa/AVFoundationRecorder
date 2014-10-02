@@ -37,13 +37,13 @@ class RecordingsCollectionViewController: UICollectionViewController {
         recognizer.minimumPressDuration = 0.5 //seconds
         recognizer.delegate = self
         recognizer.delaysTouchesBegan = true
-        self.collectionView.addGestureRecognizer(recognizer)
+        self.collectionView?.addGestureRecognizer(recognizer)
         
         var doubleTap = UITapGestureRecognizer(target:self, action:"doubleTap:")
         doubleTap.numberOfTapsRequired = 2
         doubleTap.numberOfTouchesRequired = 1
         doubleTap.delaysTouchesBegan = true
-        self.collectionView.addGestureRecognizer(doubleTap)
+        self.collectionView?.addGestureRecognizer(doubleTap)
     }
     
     /**
@@ -53,12 +53,12 @@ class RecordingsCollectionViewController: UICollectionViewController {
         var cell:UICollectionViewCell!
         
         var p = rec.locationInView(self.collectionView)
-        var indexPath = self.collectionView.indexPathForItemAtPoint(p)
+        var indexPath = self.collectionView?.indexPathForItemAtPoint(p)
         if indexPath == nil {
             NSLog("couldn't find index path");
         } else {
-            cell = self.collectionView.cellForItemAtIndexPath(indexPath)
-            NSLog("found cell at \(indexPath.row)")
+            cell = self.collectionView?.cellForItemAtIndexPath(indexPath!)
+            NSLog("found cell at \(indexPath!.row)")
         }
         return cell
     }
@@ -69,13 +69,13 @@ class RecordingsCollectionViewController: UICollectionViewController {
         }
         
         var p = rec.locationInView(self.collectionView)
-        var indexPath = self.collectionView.indexPathForItemAtPoint(p)
+        var indexPath = self.collectionView?.indexPathForItemAtPoint(p)
         if indexPath == nil {
             NSLog("couldn't find index path");
         } else {
-            var cell = self.collectionView.cellForItemAtIndexPath(indexPath)
-            NSLog("found cell at \(indexPath.row)")
-            askToRename(indexPath.row)
+            var cell = self.collectionView?.cellForItemAtIndexPath(indexPath!)
+            NSLog("found cell at \(indexPath!.row)")
+            askToRename(indexPath!.row)
         }
     }
     
@@ -84,13 +84,13 @@ class RecordingsCollectionViewController: UICollectionViewController {
             return
         }
         var p = rec.locationInView(self.collectionView)
-        var indexPath = self.collectionView.indexPathForItemAtPoint(p)
+        var indexPath = self.collectionView?.indexPathForItemAtPoint(p)
         if indexPath == nil {
             NSLog("couldn't find index path");
         } else {
-            var cell = self.collectionView.cellForItemAtIndexPath(indexPath)
-            NSLog("found cell at \(indexPath.row)")
-            askToDelete(indexPath.row)
+            var cell = self.collectionView?.cellForItemAtIndexPath(indexPath!)
+            NSLog("found cell at \(indexPath!.row)")
+            askToDelete(indexPath!.row)
         }
     }
     
@@ -111,16 +111,17 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
     
-    override func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.recordings.count
     }
     
-    override func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as RecordingCollectionViewCell
         
         cell.label.text = recordings[indexPath.row].lastPathComponent
@@ -130,16 +131,16 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDelegate
     
-    override func collectionView(collectionView: UICollectionView!, shouldHighlightItemAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
     
-    override func collectionView(collectionView: UICollectionView!, shouldSelectItemAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    override func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         println("selected \(recordings[indexPath.row].lastPathComponent)")
         
@@ -219,10 +220,10 @@ class RecordingsCollectionViewController: UICollectionViewController {
         var alert = UIAlertController(title: "Rename",
             message: "Rename Recording \(recording)?",
             preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {[unowned alert] action in
             println("yes was tapped \(self.recordings[row])")
-            let tf = alert.textFields[0] as UITextField
-            self.renameRecording(recording, to: tf.text.lastPathComponent)
+            let tf = alert.textFields as [UITextField]
+            self.renameRecording(recording, to: tf[0].text.lastPathComponent)
         }))
         alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
             println("no was tapped")
@@ -248,7 +249,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         }
         dispatch_async(dispatch_get_main_queue(), {
             self.listRecordings()
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
         })
     }
     
@@ -265,7 +266,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         dispatch_async(dispatch_get_main_queue(), {
             self.listRecordings()
-            self.collectionView.reloadData()
+            self.collectionView?.reloadData()
         })
     }
     

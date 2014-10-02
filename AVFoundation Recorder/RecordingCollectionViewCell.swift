@@ -12,7 +12,7 @@ class RecordingCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var label: UILabel!
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         var view = UIView(frame:self.frame)
         view.autoresizingMask = .FlexibleWidth | .FlexibleHeight

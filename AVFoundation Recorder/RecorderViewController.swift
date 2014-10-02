@@ -279,11 +279,42 @@ class RecorderViewController: UIViewController {
         println("foreground")
     }
     
+
     func routeChange(notification:NSNotification) {
-        var info:NSObject = notification.userInfo as NSObject
+//      let userInfo:Dictionary<String,String!> = notification.userInfo as Dictionary<String,String!>
+//      let userInfo = notification.userInfo as Dictionary<String,[AnyObject]!>
+  //  var reason = userInfo[AVAudioSessionRouteChangeReasonKey]
+
+// var userInfo: [NSObject : AnyObject]? { get }
+//let AVAudioSessionRouteChangeReasonKey: NSString!
+
+/*
+    if let reason = notification.userInfo[AVAudioSessionRouteChangeReasonKey] as? NSNumber  {
+        }
+
+        if let info = notification.userInfo as? Dictionary<String,String> {
+        
+
+           if let rs = info["AVAudioSessionRouteChangeReasonKey"] {
+                var reason =  rs.toInt()!
+
+if rs.integerValue == Int(AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw()) {
+}
+
+switch reason  {
+        case AVAudioSessionRouteChangeReason
+println("new device")
+        }
+
+           }
+        }
+
+    var description = userInfo[AVAudioSessionRouteChangePreviousRouteKey]
+*/        
+/*
         //        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as UInt
-        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
-        var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
+        //var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
+        //var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
         println(description)
         
         switch reason {
@@ -299,6 +330,7 @@ class RecorderViewController: UIViewController {
         default:
             println("something or other")
         }
+*/
     }
     
 }
