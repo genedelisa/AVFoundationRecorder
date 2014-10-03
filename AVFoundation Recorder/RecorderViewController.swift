@@ -32,6 +32,8 @@ class RecorderViewController: UIViewController {
     
     var meterTimer:NSTimer!
     
+    var soundFileURL:NSURL?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +79,7 @@ class RecorderViewController: UIViewController {
             recordButton.setTitle("Pause", forState:.Normal)
             playButton.enabled = false
             stopButton.enabled = true
-            recordWithPermission()
+            recordWithPermission(true)
             return
         }
         
@@ -91,7 +93,8 @@ class RecorderViewController: UIViewController {
             recordButton.setTitle("Pause", forState:.Normal)
             playButton.enabled = false
             stopButton.enabled = true
-            recorder.record()
+            //            recorder.record()
+            recordWithPermission(false)
         }
     }
     
@@ -113,6 +116,7 @@ class RecorderViewController: UIViewController {
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
+        recorder = nil
     }
     
     @IBAction func play(sender: UIButton) {
@@ -120,34 +124,35 @@ class RecorderViewController: UIViewController {
     }
     
     func play() {
-        println("trying to play")
-        if !recorder.recording {
-            println("playing")
-            var error: NSError?
-            self.player = AVAudioPlayer(contentsOfURL: recorder.url, error: &error)
-            if player == nil {
-                if let e = error {
-                    println(e.localizedDescription)
-                }
+        
+        println("playing")
+        var error: NSError?
+        // recorder might be nil
+        // self.player = AVAudioPlayer(contentsOfURL: recorder.url, error: &error)
+        self.player = AVAudioPlayer(contentsOfURL: soundFileURL!, error: &error)
+        if player == nil {
+            if let e = error {
+                println(e.localizedDescription)
             }
-            player.delegate = self
-            player.prepareToPlay()
-            player.volume = 1.0
-            player.play()
         }
+        player.delegate = self
+        player.prepareToPlay()
+        player.volume = 1.0
+        player.play()
     }
     
+
     
     func setupRecorder() {
         var format = NSDateFormatter()
-        format.dateFormat="yyyy-MM-dd-HH-mm"
-        var filename = "recording-\(format.stringFromDate(NSDate.date())).m4a"
-        println(filename)
+        format.dateFormat="yyyy-MM-dd-HH-mm-ss"
+        var currentFileName = "recording-\(format.stringFromDate(NSDate.date())).m4a"
+        println(currentFileName)
         
         var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         var docsDir: AnyObject = dirPaths[0]
-        var soundFilePath = docsDir.stringByAppendingPathComponent(filename)
-        var soundFileURL = NSURL(fileURLWithPath: soundFilePath)
+        var soundFilePath = docsDir.stringByAppendingPathComponent(currentFileName)
+        soundFileURL = NSURL(fileURLWithPath: soundFilePath)
         let filemanager = NSFileManager.defaultManager()
         if filemanager.fileExistsAtPath(soundFilePath) {
             // probably won't happen. want to do something about it?
@@ -162,7 +167,7 @@ class RecorderViewController: UIViewController {
             AVSampleRateKey : 44100.0
         ]
         var error: NSError?
-        recorder = AVAudioRecorder(URL: soundFileURL, settings: recordSettings, error: &error)
+        recorder = AVAudioRecorder(URL: soundFileURL!, settings: recordSettings, error: &error)
         if let e = error {
             println(e.localizedDescription)
         } else {
@@ -172,7 +177,7 @@ class RecorderViewController: UIViewController {
         }
     }
     
-    func recordWithPermission() {
+    func recordWithPermission(setup:Bool) {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
         // ios 8 and later
         if (session.respondsToSelector("requestRecordPermission:")) {
@@ -180,7 +185,9 @@ class RecorderViewController: UIViewController {
                 if granted {
                     println("Permission to record granted")
                     self.setSessionPlayAndRecord()
-                    self.setupRecorder()
+                    if setup {
+                        self.setupRecorder()
+                    }
                     self.recorder.record()
                     self.meterTimer = NSTimer.scheduledTimerWithTimeInterval(0.1,
                         target:self,
@@ -191,6 +198,8 @@ class RecorderViewController: UIViewController {
                     println("Permission to record not granted")
                 }
             })
+        } else {
+            println("requestRecordPermission unrecognized")
         }
     }
     
@@ -279,39 +288,39 @@ class RecorderViewController: UIViewController {
         println("foreground")
     }
     
-
+    
     func routeChange(notification:NSNotification) {
-//      let userInfo:Dictionary<String,String!> = notification.userInfo as Dictionary<String,String!>
-//      let userInfo = notification.userInfo as Dictionary<String,[AnyObject]!>
-  //  var reason = userInfo[AVAudioSessionRouteChangeReasonKey]
-
-// var userInfo: [NSObject : AnyObject]? { get }
-//let AVAudioSessionRouteChangeReasonKey: NSString!
-
-/*
-    if let reason = notification.userInfo[AVAudioSessionRouteChangeReasonKey] as? NSNumber  {
+        //      let userInfo:Dictionary<String,String!> = notification.userInfo as Dictionary<String,String!>
+        //      let userInfo = notification.userInfo as Dictionary<String,[AnyObject]!>
+        //  var reason = userInfo[AVAudioSessionRouteChangeReasonKey]
+        
+        // var userInfo: [NSObject : AnyObject]? { get }
+        //let AVAudioSessionRouteChangeReasonKey: NSString!
+        
+        /*
+        if let reason = notification.userInfo[AVAudioSessionRouteChangeReasonKey] as? NSNumber  {
         }
-
+        
         if let info = notification.userInfo as? Dictionary<String,String> {
         
-
-           if let rs = info["AVAudioSessionRouteChangeReasonKey"] {
-                var reason =  rs.toInt()!
-
-if rs.integerValue == Int(AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw()) {
-}
-
-switch reason  {
+        
+        if let rs = info["AVAudioSessionRouteChangeReasonKey"] {
+        var reason =  rs.toInt()!
+        
+        if rs.integerValue == Int(AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw()) {
+        }
+        
+        switch reason  {
         case AVAudioSessionRouteChangeReason
-println("new device")
+        println("new device")
         }
-
-           }
+        
         }
-
-    var description = userInfo[AVAudioSessionRouteChangePreviousRouteKey]
-*/        
-/*
+        }
+        
+        var description = userInfo[AVAudioSessionRouteChangePreviousRouteKey]
+        */
+        /*
         //        var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as UInt
         //var reason = info.valueForKey(AVAudioSessionRouteChangeReasonKey) as AVAudioSessionRouteChangeReason.Raw
         //var description = info.valueForKey(AVAudioSessionRouteChangePreviousRouteKey) as String
@@ -319,18 +328,18 @@ println("new device")
         
         switch reason {
         case AVAudioSessionRouteChangeReason.NewDeviceAvailable.toRaw():
-            println("new device")
+        println("new device")
         case AVAudioSessionRouteChangeReason.OldDeviceUnavailable.toRaw():
-            println("old device unavail")
-            //case AVAudioSessionRouteChangeReasonCategoryChange
-            //case AVAudioSessionRouteChangeReasonOverride
-            //case AVAudioSessionRouteChangeReasonWakeFromSleep
-            //case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory
-            
+        println("old device unavail")
+        //case AVAudioSessionRouteChangeReasonCategoryChange
+        //case AVAudioSessionRouteChangeReasonOverride
+        //case AVAudioSessionRouteChangeReasonWakeFromSleep
+        //case AVAudioSessionRouteChangeReasonNoSuitableRouteForCategory
+        
         default:
-            println("something or other")
+        println("something or other")
         }
-*/
+        */
     }
     
 }
