@@ -146,7 +146,7 @@ class RecorderViewController: UIViewController {
     func setupRecorder() {
         var format = NSDateFormatter()
         format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        var currentFileName = "recording-\(format.stringFromDate(NSDate.date())).m4a"
+        var currentFileName = "recording-\(format.stringFromDate(NSDate())).m4a"
         println(currentFileName)
         
         var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
@@ -161,7 +161,7 @@ class RecorderViewController: UIViewController {
         
         var recordSettings = [
             AVFormatIDKey: kAudioFormatAppleLossless,
-            AVEncoderAudioQualityKey : AVAudioQuality.Max.toRaw(),
+            AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
             AVEncoderBitRateKey : 320000,
             AVNumberOfChannelsKey: 2,
             AVSampleRateKey : 44100.0

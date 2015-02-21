@@ -148,7 +148,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         var docsDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         var url = NSURL(fileURLWithPath: docsDir + "/" + recordings[indexPath.row])
-        play(url)
+        play(url!)
     }
     
     func play(url:NSURL) {
