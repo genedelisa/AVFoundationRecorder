@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZfM-S9-gIr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZfM-S9-gIr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-rD-5VP">
-                                <rect key="frame" x="35" y="146" width="90" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-rD-5VP">
+                                <rect key="frame" x="16" y="72" width="50" height="30"/>
                                 <state key="normal" title="Record">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -26,8 +26,8 @@
                                     <action selector="record:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fL5-fm-xJg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kI1-0Y-yEN">
-                                <rect key="frame" x="223" y="146" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kI1-0Y-yEN">
+                                <rect key="frame" x="199" y="72" width="30" height="30"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -35,14 +35,14 @@
                                     <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JVk-SE-1es"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epE-QD-OIR">
-                                <rect key="frame" x="35" y="199" width="143" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epE-QD-OIR">
+                                <rect key="frame" x="16" y="152" width="43" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oB-ym-3VM">
-                                <rect key="frame" x="35" y="246" width="121" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oB-ym-3VM">
+                                <rect key="frame" x="16" y="222.5" width="121" height="30"/>
                                 <state key="normal" title="Show Recordings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -50,17 +50,8 @@
                                     <segue destination="fGx-Ly-7k8" kind="show" id="XuJ-dw-MQm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfc-Ag-JZ9">
-                                <rect key="frame" x="35" y="299" width="153" height="30"/>
-                                <state key="normal" title="Remove all recordings">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="removeAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wjb-Gy-VQl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-pV-Fnz">
-                                <rect key="frame" x="155" y="146" width="33" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-pV-Fnz">
+                                <rect key="frame" x="116" y="72" width="33" height="30"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -68,8 +59,31 @@
                                     <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OVF-bL-Q72"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfc-Ag-JZ9">
+                                <rect key="frame" x="157" y="222.5" width="153" height="30"/>
+                                <state key="normal" title="Remove all recordings">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wjb-Gy-VQl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4oB-ym-3VM" firstAttribute="top" secondItem="jfc-Ag-JZ9" secondAttribute="top" id="39X-0R-dfg"/>
+                            <constraint firstItem="YWe-rD-5VP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="8Ss-PR-n6o"/>
+                            <constraint firstItem="jfc-Ag-JZ9" firstAttribute="leading" secondItem="4oB-ym-3VM" secondAttribute="trailing" constant="20" id="BUu-1E-tBL"/>
+                            <constraint firstItem="epE-QD-OIR" firstAttribute="leading" secondItem="YWe-rD-5VP" secondAttribute="leading" id="Dit-hb-tV0"/>
+                            <constraint firstItem="UPv-pV-Fnz" firstAttribute="leading" secondItem="YWe-rD-5VP" secondAttribute="trailing" constant="50" id="DlW-4A-aEZ"/>
+                            <constraint firstItem="epE-QD-OIR" firstAttribute="top" secondItem="YWe-rD-5VP" secondAttribute="bottom" constant="50" id="Gox-Um-1dV"/>
+                            <constraint firstItem="YWe-rD-5VP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="N91-sA-ED9"/>
+                            <constraint firstItem="4oB-ym-3VM" firstAttribute="top" secondItem="epE-QD-OIR" secondAttribute="bottom" constant="50" id="OvS-wd-TKc"/>
+                            <constraint firstItem="UPv-pV-Fnz" firstAttribute="top" secondItem="kI1-0Y-yEN" secondAttribute="top" id="SjK-ou-HYm"/>
+                            <constraint firstItem="YWe-rD-5VP" firstAttribute="top" secondItem="UPv-pV-Fnz" secondAttribute="top" id="VAN-nj-GSU"/>
+                            <constraint firstItem="kI1-0Y-yEN" firstAttribute="leading" secondItem="UPv-pV-Fnz" secondAttribute="trailing" constant="50" id="eOK-So-0dm"/>
+                            <constraint firstItem="4oB-ym-3VM" firstAttribute="leading" secondItem="epE-QD-OIR" secondAttribute="leading" id="zB3-Tz-gn0"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ho9-1u-dEg"/>
                     <connections>
