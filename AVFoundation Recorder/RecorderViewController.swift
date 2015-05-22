@@ -146,7 +146,7 @@ class RecorderViewController: UIViewController {
     func setupRecorder() {
         var format = NSDateFormatter()
         format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        var currentFileName = "recording-\(format.stringFromDate(NSDate.date())).m4a"
+        var currentFileName = "recording-\(format.stringFromDate(NSDate())).m4a"
         println(currentFileName)
         
         var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
@@ -159,9 +159,9 @@ class RecorderViewController: UIViewController {
             println("sound exists")
         }
         
-        var recordSettings = [
+        var recordSettings:[NSObject: AnyObject] = [
             AVFormatIDKey: kAudioFormatAppleLossless,
-            AVEncoderAudioQualityKey : AVAudioQuality.Max.toRaw(),
+            AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
             AVEncoderBitRateKey : 320000,
             AVNumberOfChannelsKey: 2,
             AVSampleRateKey : 44100.0
@@ -238,28 +238,32 @@ class RecorderViewController: UIViewController {
     }
     
     func deleteAllRecordings() {
-        var docsDir =
-        NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        var fileManager = NSFileManager.defaultManager()
-        var error: NSError?
-        var files = fileManager.contentsOfDirectoryAtPath(docsDir, error: &error) as [String]
-        if let e = error {
-            println(e.localizedDescription)
+        if let docsDir =
+            NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as? String {
+                
+                var fileManager = NSFileManager.defaultManager()
+                var error: NSError?
+                if let files = fileManager.contentsOfDirectoryAtPath(docsDir, error: &error) as? [String] {
+                    if let e = error {
+                        println(e.localizedDescription)
+                    }
+                    var recordings = files.filter( { (name: String) -> Bool in
+                        return name.hasSuffix("m4a")
+                    })
+                    for var i = 0; i < recordings.count; i++ {
+                        var path = docsDir + "/" + recordings[i]
+                        
+                        println("removing \(path)")
+                        if !fileManager.removeItemAtPath(path, error: &error) {
+                            NSLog("could not remove \(path)")
+                        }
+                        if let e = error {
+                            println(e.localizedDescription)
+                        }
+                    }
+                }
         }
-        var recordings = files.filter( { (name: String) -> Bool in
-            return name.hasSuffix("m4a")
-        })
-        for var i = 0; i < recordings.count; i++ {
-            var path = docsDir + "/" + recordings[i]
-            
-            println("removing \(path)")
-            if !fileManager.removeItemAtPath(path, error: &error) {
-                NSLog("could not remove \(path)")
-            }
-            if let e = error {
-                println(e.localizedDescription)
-            }
-        }
+        
     }
     
     func askForNotifications() {
