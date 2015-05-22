@@ -46,12 +46,12 @@ class RecorderViewController: UIViewController {
     func updateAudioMeter(timer:NSTimer) {
         
         if recorder.recording {
-            let dFormat = "%02d"
-            let min:Int = Int(recorder.currentTime / 60)
-            let sec:Int = Int(recorder.currentTime % 60)
-            let s = "\(String(format: dFormat, min)):\(String(format: dFormat, sec))"
+            let min = Int(recorder.currentTime / 60)
+            let sec = Int(recorder.currentTime % 60)
+            let s = String(format: "%02d:%02d", min, sec)
             statusLabel.text = s
             recorder.updateMeters()
+            // if you want to draw some graphics...
             var apc0 = recorder.averagePowerForChannel(0)
             var peak0 = recorder.peakPowerForChannel(0)
         }
@@ -100,7 +100,10 @@ class RecorderViewController: UIViewController {
     
     @IBAction func stop(sender: UIButton) {
         println("stop")
-        recorder.stop()
+
+        recorder?.stop()
+        player?.stop()
+        
         meterTimer.invalidate()
         
         recordButton.setTitle("Record", forState:.Normal)
@@ -127,14 +130,25 @@ class RecorderViewController: UIViewController {
         
         println("playing")
         var error: NSError?
-        // recorder might be nil
-        // self.player = AVAudioPlayer(contentsOfURL: recorder.url, error: &error)
-        self.player = AVAudioPlayer(contentsOfURL: soundFileURL!, error: &error)
-        if player == nil {
-            if let e = error {
-                println(e.localizedDescription)
+
+        if let r = recorder {
+            self.player = AVAudioPlayer(contentsOfURL: r.url, error: &error)
+            if self.player == nil {
+                if let e = error {
+                    println(e.localizedDescription)
+                }
+            }
+        } else {
+            self.player = AVAudioPlayer(contentsOfURL: soundFileURL!, error: &error)
+            if player == nil {
+                if let e = error {
+                    println(e.localizedDescription)
+                }
             }
         }
+        
+        stopButton.enabled = true
+
         player.delegate = self
         player.prepareToPlay()
         player.volume = 1.0
