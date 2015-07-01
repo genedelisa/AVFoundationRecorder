@@ -119,7 +119,7 @@ class RecorderViewController: UIViewController {
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
-        recorder = nil
+        //recorder = nil
     }
     
     @IBAction func play(sender: UIButton) {
