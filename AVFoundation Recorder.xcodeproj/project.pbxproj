@@ -14,6 +14,7 @@
 		B005192B199BDFAC0070659F /* RecordingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */; };
 		B005192D199BE0F40070659F /* RecordingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */; };
 		B075BD97199C268800CDA3AB /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075BD96199C268800CDA3AB /* RecorderViewController.swift */; };
+		B0A0D13A1B5593BF006FFCA1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B0A0D1391B5593BF006FFCA1 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		B005192A199BDFAC0070659F /* RecordingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsCollectionViewController.swift; sourceTree = "<group>"; };
 		B005192C199BE0F40070659F /* RecordingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingCollectionViewCell.swift; sourceTree = "<group>"; };
 		B075BD96199C268800CDA3AB /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
+		B0A0D1391B5593BF006FFCA1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		B00518FB199BDB2E0070659F = {
 			isa = PBXGroup;
 			children = (
+				B0A0D1391B5593BF006FFCA1 /* LICENSE */,
 				B0051928199BDECB0070659F /* README.md */,
 				B0051906199BDB2E0070659F /* AVFoundation Recorder */,
 				B0051919199BDB2E0070659F /* AVFoundation RecorderTests */,
@@ -161,6 +164,7 @@
 		B00518FC199BDB2E0070659F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Gene De Lisa";
 				TargetAttributes = {
@@ -197,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A0D13A1B5593BF006FFCA1 /* LICENSE in Resources */,
 				B005190F199BDB2E0070659F /* Main.storyboard in Resources */,
 				B0051911199BDB2E0070659F /* Images.xcassets in Resources */,
 			);

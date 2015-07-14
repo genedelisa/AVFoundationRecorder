@@ -1,5 +1,11 @@
 # AvFoundation Recorder
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://en.wikipedia.org/wiki/MIT_License)
+[![Build Status](https://travis-ci.org/genedelisa/TableBinding.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
+[![GitHub tag](https://img.shields.io/github/tag/genedelisa/tablebinding.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
+[![GitHub release](https://img.shields.io/github/release/genedelisa/tablebinding.svg)](https://github.com/genedelisa/AVFoundationRecorder/tablebinding/)
+
+
 An audio recorder using AVFoundation.
 
 ## Blog post for this example.
@@ -10,7 +16,10 @@ An audio recorder using AVFoundation.
 
 ## Bugs
 
-None right now.
+
+[![GitHub issues](https://img.shields.io/github/issues/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/issues)
+
+If you find one, [please add it to issues](https://github.com/genedelisa/AVFoundationRecorder/issues)
 
 ### Buy my kitty Giacomo some cat food
 
@@ -21,8 +30,12 @@ None right now.
 
 ## Licensing
 
-I'd appreciate an ack somehow.
+[MIT](https://en.wikipedia.org/wiki/MIT_License)
+
+Please read the [LICENSE](LICENSE) for details.
 
 ## Credits
 
-*	[Gene De Lisa](http://rockhoppertech.com/blog/)
+*	[Gene De Lisa's development blog](http://rockhoppertech.com/blog/)
+*	[Gene De Lisa's music blog](http://genedelisa.com/)
+*   Twitter: [@GeneDeLisaDev](http://twitter.com/genedelisadev)
