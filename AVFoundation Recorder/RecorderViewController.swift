@@ -52,8 +52,8 @@ class RecorderViewController: UIViewController {
             statusLabel.text = s
             recorder.updateMeters()
             // if you want to draw some graphics...
-            var apc0 = recorder.averagePowerForChannel(0)
-            var peak0 = recorder.peakPowerForChannel(0)
+//            let apc0 = recorder.averagePowerForChannel(0)
+//            let peak0 = recorder.peakPowerForChannel(0)
         }
     }
     
@@ -108,14 +108,16 @@ class RecorderViewController: UIViewController {
         
         recordButton.setTitle("Record", forState:.Normal)
         let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setActive(false, error: &error) {
-            print("could not make session inactive")
-            if let e = error {
-                print(e.localizedDescription)
-                return
-            }
+        
+        do {
+            try session.setActive(false)
         }
+        catch let e as NSError {
+            print("could not make session inactive")
+            print(e.localizedDescription)
+            return
+        }
+
         playButton.enabled = true
         stopButton.enabled = false
         recordButton.enabled = true
@@ -129,21 +131,21 @@ class RecorderViewController: UIViewController {
     func play() {
         
         print("playing")
-        var error: NSError?
 
         if let r = recorder {
-            self.player = AVAudioPlayer(contentsOfURL: r.url, error: &error)
-            if self.player == nil {
-                if let e = error {
-                    print(e.localizedDescription)
-                }
+            do {
+                self.player = try AVAudioPlayer(contentsOfURL: r.url)
             }
-        } else {
-            self.player = AVAudioPlayer(contentsOfURL: soundFileURL!, error: &error)
-            if player == nil {
-                if let e = error {
-                    print(e.localizedDescription)
-                }
+            catch let e as NSError {
+                print("\(e.localizedDescription)")
+            }
+        }
+        else {
+            do {
+                self.player = try AVAudioPlayer(contentsOfURL: soundFileURL!)
+            }
+            catch let e as NSError {
+                print("\(e.localizedDescription)")
             }
         }
         
@@ -158,14 +160,14 @@ class RecorderViewController: UIViewController {
 
     
     func setupRecorder() {
-        var format = NSDateFormatter()
+        let format = NSDateFormatter()
         format.dateFormat="yyyy-MM-dd-HH-mm-ss"
-        var currentFileName = "recording-\(format.stringFromDate(NSDate())).m4a"
+        let currentFileName = "recording-\(format.stringFromDate(NSDate())).m4a"
         print(currentFileName)
         
-        var dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        var docsDir: AnyObject = dirPaths[0]
-        var soundFilePath = docsDir.stringByAppendingPathComponent(currentFileName)
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let docsDir: AnyObject = dirPaths[0]
+        let soundFilePath = docsDir.stringByAppendingPathComponent(currentFileName)
         soundFileURL = NSURL(fileURLWithPath: soundFilePath)
         let filemanager = NSFileManager.defaultManager()
         if filemanager.fileExistsAtPath(soundFilePath) {
@@ -173,21 +175,22 @@ class RecorderViewController: UIViewController {
             print("sound exists")
         }
         
-        var recordSettings:[NSObject: AnyObject] = [
-            AVFormatIDKey: kAudioFormatAppleLossless,
-            AVEncoderAudioQualityKey : AVAudioQuality.Max.rawValue,
-            AVEncoderBitRateKey : 320000,
-            AVNumberOfChannelsKey: 2,
-            AVSampleRateKey : 44100.0
+        let recordSettings = [
+            AVFormatIDKey: Int(kAudioFormatAppleLossless),
+            AVEncoderAudioQualityKey: AVAudioQuality.Max.rawValue,
+            AVEncoderBitRateKey: 320000.0 as NSNumber,
+            AVNumberOfChannelsKey: 2 as NSNumber,
+            AVSampleRateKey : 44100.0 as NSNumber
         ]
-        var error: NSError?
-        recorder = AVAudioRecorder(URL: soundFileURL!, settings: recordSettings, error: &error)
-        if let e = error {
-            print(e.localizedDescription)
-        } else {
+        do {
+            recorder = try AVAudioRecorder(URL: soundFileURL!, settings: recordSettings) as AVAudioRecorder!
+            
             recorder.delegate = self
             recorder.meteringEnabled = true
             recorder.prepareToRecord() // creates/overwrites the file at soundFileURL
+        }
+        catch let e as NSError {
+            print(e.localizedDescription)
         }
     }
     
@@ -219,65 +222,64 @@ class RecorderViewController: UIViewController {
     
     func setSessionPlayback() {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setCategory(AVAudioSessionCategoryPlayback, error:&error) {
-            print("could not set session category")
-            if let e = error {
-                print(e.localizedDescription)
-            }
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayback)
         }
-        if !session.setActive(true, error: &error) {
+        catch let e as NSError {
+            print(e.localizedDescription)
+        }
+        
+        do {
+            try session.setActive(true)
+        }
+        catch let e as NSError {
             print("could not make session active")
-            if let e = error {
-                print(e.localizedDescription)
-            }
+            print(e.localizedDescription)
         }
     }
     
     func setSessionPlayAndRecord() {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
-        var error: NSError?
-        if !session.setCategory(AVAudioSessionCategoryPlayAndRecord, error:&error) {
-            print("could not set session category")
-            if let e = error {
-                print(e.localizedDescription)
-            }
+
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         }
-        if !session.setActive(true, error: &error) {
+        catch let e as NSError {
+            print(e.localizedDescription)
+        }
+
+        do {
+            try session.setActive(true)
+        }
+        catch let e as NSError {
             print("could not make session active")
-            if let e = error {
-                print(e.localizedDescription)
-            }
+            print(e.localizedDescription)
         }
     }
     
     func deleteAllRecordings() {
         if let docsDir =
-            NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as? String {
+            NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String? {
                 
-                var fileManager = NSFileManager.defaultManager()
-                var error: NSError?
-                if let files = fileManager.contentsOfDirectoryAtPath(docsDir, error: &error) as? [String] {
-                    if let e = error {
-                        print(e.localizedDescription)
-                    }
+                let fileManager = NSFileManager.defaultManager()
+                
+                do {
+                    let files = try fileManager.contentsOfDirectoryAtPath(docsDir)
+                    
                     var recordings = files.filter( { (name: String) -> Bool in
                         return name.hasSuffix("m4a")
                     })
                     for var i = 0; i < recordings.count; i++ {
-                        var path = docsDir + "/" + recordings[i]
+                        let path = docsDir + "/" + recordings[i]
                         
                         print("removing \(path)")
-                        if !fileManager.removeItemAtPath(path, error: &error) {
-                            NSLog("could not remove \(path)")
-                        }
-                        if let e = error {
-                            print(e.localizedDescription)
-                        }
+                        try fileManager.removeItemAtPath(path)
                     }
                 }
+                catch let e as NSError {
+                    print(e.localizedDescription)
+                }
         }
-        
     }
     
     func askForNotifications() {
@@ -365,7 +367,7 @@ class RecorderViewController: UIViewController {
 // MARK: AVAudioRecorderDelegate
 extension RecorderViewController : AVAudioRecorderDelegate {
     
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder!,
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder,
         successfully flag: Bool) {
             print("finished recording \(flag)")
             stopButton.enabled = false
@@ -373,7 +375,7 @@ extension RecorderViewController : AVAudioRecorderDelegate {
             recordButton.setTitle("Record", forState:.Normal)
             
             // iOS8 and later
-            var alert = UIAlertController(title: "Recorder",
+            let alert = UIAlertController(title: "Recorder",
                 message: "Finished Recording",
                 preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Keep", style: .Default, handler: {action in
@@ -386,22 +388,26 @@ extension RecorderViewController : AVAudioRecorderDelegate {
             self.presentViewController(alert, animated:true, completion:nil)
     }
     
-    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder!,
-        error: NSError!) {
-            print("\(error.localizedDescription)")
+    func audioRecorderEncodeErrorDidOccur(recorder: AVAudioRecorder,
+        error: NSError?) {
+            if error != nil {
+                print("\(error!.localizedDescription)")
+            }
     }
 }
 
 // MARK: AVAudioPlayerDelegate
 extension RecorderViewController : AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         print("finished playing \(flag)")
         recordButton.enabled = true
         stopButton.enabled = false
     }
     
-    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer!, error: NSError!) {
-        print("\(error.localizedDescription)")
+    func audioPlayerDecodeErrorDidOccur(player: AVAudioPlayer, error: NSError?) {
+        if error != nil {
+            print("\(error!.localizedDescription)")
+        }
     }
 }
 

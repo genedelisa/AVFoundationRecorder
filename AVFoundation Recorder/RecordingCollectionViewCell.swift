@@ -14,8 +14,8 @@ class RecordingCollectionViewCell: UICollectionViewCell {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        var view = UIView(frame:self.frame)
-        view.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        let view = UIView(frame:self.frame)
+        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.backgroundColor = UIColor(red: 0.2, green: 0.6, blue: 1.0, alpha: 1.0)
         view.layer.borderColor = UIColor.whiteColor().CGColor
         view.layer.borderWidth = 4
