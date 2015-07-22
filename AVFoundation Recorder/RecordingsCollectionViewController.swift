@@ -142,7 +142,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        println("selected \(recordings[indexPath.row].lastPathComponent)")
+        print("selected \(recordings[indexPath.row].lastPathComponent)")
         
         //var cell = collectionView.cellForItemAtIndexPath(indexPath)
         
@@ -154,12 +154,12 @@ class RecordingsCollectionViewController: UICollectionViewController {
     }
     
     func play(url:NSURL) {
-        println("playing \(url)")
+        print("playing \(url)")
         var error: NSError?
         self.player = AVAudioPlayer(contentsOfURL: url, error: &error)
         if player == nil {
             if let e = error {
-                println(e.localizedDescription)
+                print(e.localizedDescription)
             }
         }
         //            player.delegate = self
@@ -195,7 +195,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
                 var error: NSError?
                 if let files = fileManager.contentsOfDirectoryAtPath(docsDir, error: &error) as? [String] {
                     if let e = error {
-                        println(e.localizedDescription)
+                        print(e.localizedDescription)
                     }
                     self.recordings = files.filter( { (name: String) -> Bool in
                         //            name.hasPrefix("recording-"))
@@ -211,11 +211,11 @@ class RecordingsCollectionViewController: UICollectionViewController {
             message: "Delete Recording \(recordings[row])?",
             preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {action in
-            println("yes was tapped \(self.recordings[row])")
+            print("yes was tapped \(self.recordings[row])")
             self.deleteRecording(self.recordings[row])
         }))
         alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
-            println("no was tapped")
+            print("no was tapped")
         }))
         self.presentViewController(alert, animated:true, completion:nil)
     }
@@ -227,14 +227,14 @@ class RecordingsCollectionViewController: UICollectionViewController {
             message: "Rename Recording \(recording)?",
             preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: {[unowned alert] action in
-            println("yes was tapped \(self.recordings[row])")
+            print("yes was tapped \(self.recordings[row])")
             if let tf = alert.textFields as? [UITextField] {
                 self.renameRecording(recording, to: tf[0].text.lastPathComponent)
             }
             
         }))
         alert.addAction(UIAlertAction(title: "No", style: .Default, handler: {action in
-            println("no was tapped")
+            print("no was tapped")
         }))
         alert.addTextFieldWithConfigurationHandler({textfield in
             textfield.placeholder = "Enter a filename"
@@ -247,13 +247,13 @@ class RecordingsCollectionViewController: UICollectionViewController {
         if let docsDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as? String {
             var f = docsDir + "/" + from
             var t = docsDir + "/" + to
-            println("renaming file \(f) to \(t)")
+            print("renaming file \(f) to \(t)")
             var fileManager = NSFileManager.defaultManager()
             fileManager.delegate = self
             var error: NSError?
             fileManager.moveItemAtPath(f, toPath: t, error: &error)
             if let e = error {
-                println(e.localizedDescription)
+                print(e.localizedDescription)
             }
             dispatch_async(dispatch_get_main_queue(), {
                 self.listRecordings()
@@ -266,12 +266,12 @@ class RecordingsCollectionViewController: UICollectionViewController {
     func deleteRecording(filename:String) {
         if let docsDir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as? String {
             //        var url = NSURL(fileURLWithPath: docsDir + "/" + filename)
-            println("removing file at \(docsDir)/\(filename)")
+            print("removing file at \(docsDir)/\(filename)")
             var fileManager = NSFileManager.defaultManager()
             var error: NSError?
             fileManager.removeItemAtPath(docsDir + "/" + filename, error: &error)
             if let e = error {
-                println(e.localizedDescription)
+                print(e.localizedDescription)
             }
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -288,7 +288,7 @@ extension RecordingsCollectionViewController: NSFileManagerDelegate {
 
     func fileManager(fileManager: NSFileManager, shouldMoveItemAtURL srcURL: NSURL, toURL dstURL: NSURL) -> Bool {
 
-        println("should move \(srcURL) to \(dstURL)")
+        print("should move \(srcURL) to \(dstURL)")
         return true
     }
     
