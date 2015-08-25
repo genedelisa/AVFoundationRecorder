@@ -198,7 +198,8 @@ class RecorderViewController: UIViewController {
         let session:AVAudioSession = AVAudioSession.sharedInstance()
         // ios 8 and later
         if (session.respondsToSelector("requestRecordPermission:")) {
-            AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
+          
+            AVAudioSession.sharedInstance().requestRecordPermission({ granted in
                 if granted {
                     print("Permission to record granted")
                     self.setSessionPlayAndRecord()

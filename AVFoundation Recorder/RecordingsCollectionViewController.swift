@@ -123,7 +123,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RecordingCollectionViewCell
         
-        cell.label.text = recordings[indexPath.row].lastPathComponent
+        cell.label.text = NSString(string: recordings[indexPath.row]).lastPathComponent
         
         return cell
     }
@@ -141,7 +141,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        print("selected \(recordings[indexPath.row].lastPathComponent)")
+      print("selected \( NSString(string: recordings[indexPath.row]).lastPathComponent))")
         
         //var cell = collectionView.cellForItemAtIndexPath(indexPath)
         
@@ -231,7 +231,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             if let tf = alert.textFields {
                 let firstTextField = tf[0]
                 if firstTextField.text != nil {
-                    self.renameRecording(recording, to: firstTextField.text!.lastPathComponent)
+                  self.renameRecording(recording, to: NSString(string: firstTextField.text!).lastPathComponent)
                 }
             }
         }))
