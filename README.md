@@ -1,9 +1,9 @@
 # AvFoundation Recorder
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://en.wikipedia.org/wiki/MIT_License)
-[![Build Status](https://travis-ci.org/genedelisa/TableBinding.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
-[![GitHub tag](https://img.shields.io/github/tag/genedelisa/tablebinding.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
-[![GitHub release](https://img.shields.io/github/release/genedelisa/tablebinding.svg)](https://github.com/genedelisa/AVFoundationRecorder/tablebinding/)
+[![Build Status](https://travis-ci.org/genedelisa/AVFoundationRecorder.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
+[![GitHub tag](https://img.shields.io/github/tag/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
+[![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 
 
 An audio recorder using AVFoundation.
