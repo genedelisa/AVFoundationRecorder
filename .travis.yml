@@ -1,0 +1,18 @@
+# file: .travis.yml
+language: objective-c
+
+before_install:
+- brew update
+- brew outdated xctool || brew upgrade xctool
+- gem install xcpretty -N
+
+
+script:
+
+- xctool clean build -project "AVFoundation Recorder.xcodeproj" -scheme "AVFoundation Recorder"  | xcpretty -c
+- xctool test -project "AVFoundation Recorder.xcodeproj" -scheme "AVFoundation RecorderTests"  | xcpretty -c
+
+
+# http://docs.travis-ci.com/user/languages/objective-c/
+
+
