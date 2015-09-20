@@ -1,4 +1,4 @@
-# AvFoundation Recorder
+# AVFoundation Recorder
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://en.wikipedia.org/wiki/MIT_License)
 [![Build Status](https://travis-ci.org/genedelisa/AVFoundationRecorder.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
@@ -6,7 +6,11 @@
 [![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 
 
-An audio recorder using AVFoundation.
+An audio recorder using AVFoundation updated for Swift 2.
+
+This will save recordings in Apple Lossless format. You can change the recording settings to another format if you'd like.
+
+The recordings are shown in a CollectionView. The cells will respond to single taps, double taps, and a long press to play, rename, or delete the sound file.
 
 ## Blog post for this example.
 
