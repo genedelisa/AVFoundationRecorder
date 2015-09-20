@@ -23,6 +23,8 @@ If you find one, [please add it to issues](https://github.com/genedelisa/AVFound
 
 ### Buy my kitty Giacomo some cat food
 
+If this project is of any use to you, my ravenous Maine Coon kitty would like a snack.
+
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=F5KE9Z29MH8YQ&bnP-DonationsBF:btn_donate_SM.gif:NonHosted)
 
 <img src="http://www.rockhoppertech.com/blog/wp-content/uploads/2015/05/IMG_0657.png" alt="Giacomo Kitty" width="400" height="300">
