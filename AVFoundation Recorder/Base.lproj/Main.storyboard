@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZfM-S9-gIr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZfM-S9-gIr">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWe-rD-5VP">
-                                <rect key="frame" x="16" y="72" width="50" height="30"/>
+                                <rect key="frame" x="20" y="72" width="49" height="30"/>
                                 <state key="normal" title="Record">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -27,7 +28,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kI1-0Y-yEN">
-                                <rect key="frame" x="199" y="72" width="30" height="30"/>
+                                <rect key="frame" x="201" y="72" width="30" height="30"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -36,13 +37,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epE-QD-OIR">
-                                <rect key="frame" x="16" y="152" width="43" height="20.5"/>
+                                <rect key="frame" x="20" y="152" width="46" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oB-ym-3VM">
-                                <rect key="frame" x="16" y="222.5" width="121" height="30"/>
+                                <rect key="frame" x="20" y="222" width="119" height="30"/>
                                 <state key="normal" title="Show Recordings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -51,7 +52,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-pV-Fnz">
-                                <rect key="frame" x="116" y="72" width="33" height="30"/>
+                                <rect key="frame" x="119" y="72" width="32" height="30"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -60,12 +61,19 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfc-Ag-JZ9">
-                                <rect key="frame" x="157" y="222.5" width="153" height="30"/>
+                                <rect key="frame" x="159" y="222" width="152" height="30"/>
                                 <state key="normal" title="Remove all recordings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="removeAll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wjb-Gy-VQl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcE-hQ-7ml">
+                                <rect key="frame" x="20" y="276" width="31" height="30"/>
+                                <state key="normal" title="Trim"/>
+                                <connections>
+                                    <action selector="trim" destination="BYZ-38-t0r" eventType="touchUpInside" id="byh-bb-b7I"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -78,12 +86,22 @@
                             <constraint firstItem="UPv-pV-Fnz" firstAttribute="leading" secondItem="YWe-rD-5VP" secondAttribute="trailing" constant="50" id="DlW-4A-aEZ"/>
                             <constraint firstItem="epE-QD-OIR" firstAttribute="top" secondItem="YWe-rD-5VP" secondAttribute="bottom" constant="50" id="Gox-Um-1dV"/>
                             <constraint firstItem="YWe-rD-5VP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="N91-sA-ED9"/>
+                            <constraint firstItem="PcE-hQ-7ml" firstAttribute="leading" secondItem="4oB-ym-3VM" secondAttribute="leading" id="NFR-p3-62m"/>
                             <constraint firstItem="4oB-ym-3VM" firstAttribute="top" secondItem="epE-QD-OIR" secondAttribute="bottom" constant="50" id="OvS-wd-TKc"/>
+                            <constraint firstItem="PcE-hQ-7ml" firstAttribute="leading" secondItem="jfc-Ag-JZ9" secondAttribute="trailing" constant="27" id="ROS-Dp-goS"/>
                             <constraint firstItem="UPv-pV-Fnz" firstAttribute="top" secondItem="kI1-0Y-yEN" secondAttribute="top" id="SjK-ou-HYm"/>
                             <constraint firstItem="YWe-rD-5VP" firstAttribute="top" secondItem="UPv-pV-Fnz" secondAttribute="top" id="VAN-nj-GSU"/>
+                            <constraint firstItem="PcE-hQ-7ml" firstAttribute="top" secondItem="jfc-Ag-JZ9" secondAttribute="top" id="bwP-8A-3Uc"/>
                             <constraint firstItem="kI1-0Y-yEN" firstAttribute="leading" secondItem="UPv-pV-Fnz" secondAttribute="trailing" constant="50" id="eOK-So-0dm"/>
+                            <constraint firstItem="PcE-hQ-7ml" firstAttribute="top" secondItem="4oB-ym-3VM" secondAttribute="bottom" constant="23.5" id="nUF-qd-EQE"/>
                             <constraint firstItem="4oB-ym-3VM" firstAttribute="leading" secondItem="epE-QD-OIR" secondAttribute="leading" id="zB3-Tz-gn0"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ROS-Dp-goS"/>
+                                <exclude reference="bwP-8A-3Uc"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Ho9-1u-dEg"/>
                     <connections>
@@ -113,7 +131,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="recordingCell" id="8Xq-ld-PZS" customClass="RecordingCollectionViewCell" customModule="AVFoundation_Recorder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="149.5" y="64" width="301" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="301" height="71"/>

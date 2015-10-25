@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/genedelisa/AVFoundationRecorder.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
 [![GitHub tag](https://img.shields.io/github/tag/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 [![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
-
+[![GitHub commits](https://img.shields.io/github/commits-since/genedelisa/AVFoundationRecorder/2.0.0.svg)
 
 An audio recorder using AVFoundation updated for Swift 2.
 

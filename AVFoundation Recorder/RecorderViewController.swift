@@ -32,7 +32,7 @@ class RecorderViewController: UIViewController {
     
     var meterTimer:NSTimer!
     
-    var soundFileURL:NSURL?
+    var soundFileURL:NSURL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +123,7 @@ class RecorderViewController: UIViewController {
     }
     
     @IBAction func play(sender: UIButton) {
+        setSessionPlayback()
         play()
     }
     
@@ -158,7 +159,7 @@ class RecorderViewController: UIViewController {
         print(currentFileName)
        
         let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        let soundFileURL = documentsDirectory.URLByAppendingPathComponent(currentFileName)
+         self.soundFileURL = documentsDirectory.URLByAppendingPathComponent(currentFileName)
 
         if NSFileManager.defaultManager().fileExistsAtPath(soundFileURL.absoluteString) {
             // probably won't happen. want to do something about it?
@@ -381,6 +382,152 @@ class RecorderViewController: UIViewController {
             print("checking headphones requires a connection to a device")
         }
     }
+    
+    @IBAction
+    func trim() {
+        if self.soundFileURL == nil {
+            print("no sound file")
+            return
+        }
+        
+        print("trimming \(soundFileURL!.absoluteString)")
+        print("trimming path \(soundFileURL!.lastPathComponent)")
+        let asset = AVAsset(URL:self.soundFileURL!)
+        exportAsset(asset, fileName: "trimmed.m4a")
+    }
+    
+    func exportAsset(asset:AVAsset, fileName:String) {
+        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let trimmedSoundFileURL = documentsDirectory.URLByAppendingPathComponent(fileName)
+        print("saving to \(trimmedSoundFileURL.absoluteString)")
+
+
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(trimmedSoundFileURL.absoluteString) {
+            print("sound exists, removing \(trimmedSoundFileURL.absoluteString)")
+            do {
+                var error:NSError?
+                if trimmedSoundFileURL.checkResourceIsReachableAndReturnError(&error) {
+                    print("is reachable")
+                }
+                if let e = error {
+                    print(e.localizedDescription)
+                }
+                
+                try NSFileManager.defaultManager().removeItemAtPath(trimmedSoundFileURL.absoluteString)
+            } catch let error as NSError {
+                NSLog("could not remove \(trimmedSoundFileURL)")
+                print(error.localizedDescription)
+            }
+           
+        }
+        
+        if let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) {
+            exporter.outputFileType = AVFileTypeAppleM4A
+            exporter.outputURL = trimmedSoundFileURL
+            
+            let duration = CMTimeGetSeconds(asset.duration)
+            if (duration < 5.0) {
+                print("sound is not long enough")
+                return
+            }
+            // e.g. the first 5 seconds
+            let startTime = CMTimeMake(0, 1)
+            let stopTime = CMTimeMake(5, 1)
+            exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+            
+//            // set up the audio mix
+//            let tracks = asset.tracksWithMediaType(AVMediaTypeAudio)
+//            if tracks.count == 0 {
+//                return
+//            }
+//            let track = tracks[0]
+//            let exportAudioMix = AVMutableAudioMix()
+//            let exportAudioMixInputParameters =
+//            AVMutableAudioMixInputParameters(track: track)
+//            exportAudioMixInputParameters.setVolume(1.0, atTime: CMTimeMake(0, 1))
+//            exportAudioMix.inputParameters = [exportAudioMixInputParameters]
+//            // exporter.audioMix = exportAudioMix
+            
+            // do it
+            exporter.exportAsynchronouslyWithCompletionHandler({
+                switch exporter.status {
+                case  AVAssetExportSessionStatus.Failed:
+
+                    if let e = exporter.error {
+                        print("export failed \(e)")
+                        switch e.code {
+                        case AVError.FileAlreadyExists.rawValue:
+                            print("File Exists")
+                            break
+                        default: break
+                        }
+                    } else {
+                        print("export failed")
+                    }
+                case AVAssetExportSessionStatus.Cancelled:
+                    print("export cancelled \(exporter.error)")
+                default:
+                    print("export complete")
+                }
+            })
+        }
+        
+    }
+    
+    @IBAction
+    func speed() {
+        let asset = AVAsset(URL:self.soundFileURL!)
+        exportSpeedAsset(asset, fileName: "trimmed.m4a")
+    }
+    
+    func exportSpeedAsset(asset:AVAsset, fileName:String) {
+        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let trimmedSoundFileURL = documentsDirectory.URLByAppendingPathComponent(fileName)
+        
+        let filemanager = NSFileManager.defaultManager()
+        if filemanager.fileExistsAtPath(trimmedSoundFileURL.absoluteString) {
+            print("sound exists")
+        }
+        
+        if let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) {
+            exporter.outputFileType = AVFileTypeAppleM4A
+            exporter.outputURL = trimmedSoundFileURL
+            
+            
+            //             AVAudioTimePitchAlgorithmVarispeed
+            //             AVAudioTimePitchAlgorithmSpectral
+            //             AVAudioTimePitchAlgorithmTimeDomain
+            exporter.audioTimePitchAlgorithm = AVAudioTimePitchAlgorithmVarispeed
+            
+            
+            
+            
+            let duration = CMTimeGetSeconds(asset.duration)
+            if (duration < 5.0) {
+                print("sound is not long enough")
+                return
+            }
+            // e.g. the first 5 seconds
+//            let startTime = CMTimeMake(0, 1)
+//            let stopTime = CMTimeMake(5, 1)
+//            let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+//            exporter.timeRange = exportTimeRange
+            
+            // do it
+            exporter.exportAsynchronouslyWithCompletionHandler({
+                switch exporter.status {
+                case  AVAssetExportSessionStatus.Failed:
+                    print("export failed \(exporter.error)")
+                case AVAssetExportSessionStatus.Cancelled:
+                    print("export cancelled \(exporter.error)")
+                default:
+                    print("export complete")
+                }
+            })
+        }
+    }
+
     
 }
 
