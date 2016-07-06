@@ -6,6 +6,13 @@
 [![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 [![GitHub commits](https://img.shields.io/github/commits-since/genedelisa/AVFoundationRecorder/2.0.0.svg)
 
+[![Platforms OS X | iOS](https://img.shields.io/badge/Platforms-OS%20X%20%7C%20iOS-lightgray.svg?style=flat)](https://swift.org/)
+
+[![Sponsors](https://img.shields.io/badge/Sponsors-Rockhopper%20Technologies-orange.svg?style=flat)](https://www.rockhoppertech.com/)
+[![Twitter @GeneDeLisaDev](https://img.shields.io/twitter/follow/GeneDeLisaDev.svg?style=social)](https://twitter.com/GeneDeLisaDev)
+
+
+
 An audio recorder using AVFoundation updated for Swift 2.
 
 This will save recordings in Apple Lossless format. You can change the recording settings to another format if you'd like.
