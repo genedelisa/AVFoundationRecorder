@@ -4,19 +4,19 @@
 [![Build Status](https://travis-ci.org/genedelisa/AVFoundationRecorder.svg)](https://travis-ci.org/genedelisa/AVFoundationRecorder)
 [![GitHub tag](https://img.shields.io/github/tag/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 [![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
-[![GitHub commits](https://img.shields.io/github/commits-since/genedelisa/AVFoundationRecorder/2.0.0.svg)
+[![GitHub commits](https://img.shields.io/github/commits-since/genedelisa/AVFoundationRecorder/3.0.0.svg)
 
 [![Swift 3](https://img.shields.io/badge/swift3-compatible-4BC51D.svg?style=flat")](https://developer.apple.com/swift)
 
 
-[![Platforms OS X | iOS](https://img.shields.io/badge/Platforms-OS%20X%20%7C%20iOS-lightgray.svg?style=flat)](https://swift.org/)
+[![Platforms iOS](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)](https://swift.org/)
 
 [![Sponsors](https://img.shields.io/badge/Sponsors-Rockhopper%20Technologies-orange.svg?style=flat)](http://www.rockhoppertech.com/)
 [![Twitter @GeneDeLisaDev](https://img.shields.io/twitter/follow/GeneDeLisaDev.svg?style=social)](https://twitter.com/GeneDeLisaDev)
 
 
 
-An audio recorder using AVFoundation updated for Swift 2.
+An audio recorder using AVFoundation updated for Swift 3.
 
 This will save recordings in Apple Lossless format. You can change the recording settings to another format if you'd like.
 
@@ -29,6 +29,10 @@ The recordings are shown in a CollectionView. The cells will respond to single t
 
 
 ## Bugs
+
+The trimming function doesn't work because AVAssetExportSession is not being created for some reason.
+There is a FIXME: tag for this in the source.
+Any ideas?
 
 
 [![GitHub issues](https://img.shields.io/github/issues/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/issues)
