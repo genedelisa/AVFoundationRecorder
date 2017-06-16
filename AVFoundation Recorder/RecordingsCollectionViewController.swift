@@ -63,7 +63,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         let p = rec.location(in: self.collectionView)
         if let indexPath = self.collectionView?.indexPathForItem(at: p) {
-            askToRename((indexPath as NSIndexPath).row)
+            askToRename(indexPath.row)
         }
         
     }
@@ -74,7 +74,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         }
         let p = rec.location(in: self.collectionView)
         if let indexPath = self.collectionView?.indexPathForItem(at: p) {
-            askToDelete((indexPath as NSIndexPath).row)
+            askToDelete(indexPath.row)
         }
 
     }
@@ -109,7 +109,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordingCollectionViewCell
         
-        cell.label.text = recordings[(indexPath as NSIndexPath).row].lastPathComponent
+        cell.label.text = recordings[indexPath.row].lastPathComponent
         
         return cell
     }
@@ -130,7 +130,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         print("selected \(recordings[(indexPath as NSIndexPath).row].lastPathComponent)")
         
         //var cell = collectionView.cellForItemAtIndexPath(indexPath)
-        play(recordings[(indexPath as NSIndexPath).row])
+        play(recordings[indexPath.row])
 
     }
     
@@ -142,10 +142,9 @@ class RecordingsCollectionViewController: UICollectionViewController {
             player.prepareToPlay()
             player.volume = 1.0
             player.play()
-        } catch let error as NSError {
+        } catch {
             self.player = nil
             print(error.localizedDescription)
-        } catch {
             print("AVAudioPlayer init failed")
         }
         
@@ -174,14 +173,15 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         do {
-            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory,
+                                                                   includingPropertiesForKeys: nil,
+                                                                   options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             self.recordings = urls.filter( { (name: URL) -> Bool in
                 return name.lastPathComponent.hasSuffix("m4a")
             })
            
-        } catch let error as NSError {
-            print(error.localizedDescription)
         } catch {
+            print(error.localizedDescription)
             print("something went wrong listing recordings")
         }
         
@@ -207,7 +207,8 @@ class RecordingsCollectionViewController: UICollectionViewController {
         let alert = UIAlertController(title: "Rename",
             message: "Rename Recording \(recording.lastPathComponent)?",
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {[unowned alert] action in
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            [unowned alert] action in
             print("yes was tapped \(self.recordings[row])")
             if let textFields = alert.textFields{
                 let tfa = textFields as [UITextField]
@@ -235,15 +236,14 @@ class RecordingsCollectionViewController: UICollectionViewController {
         fileManager.delegate = self
         do {
             try FileManager.default.moveItem(at: from, to: toURL)
-        } catch let error as NSError {
-            print(error.localizedDescription)
         } catch {
+            print(error.localizedDescription)
             print("error renaming recording")
         }
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async() {
             self.listRecordings()
             self.collectionView?.reloadData()
-        })
+        }
         
     }
 
@@ -255,16 +255,15 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
         do {
             try fileManager.removeItem(at: url)
-        } catch let error as NSError {
-            print(error.localizedDescription)
         } catch {
+            print(error.localizedDescription)
             print("error deleting recording")
         }
         
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async() {
             self.listRecordings()
             self.collectionView?.reloadData()
-        })
+        }
     }
     
     
