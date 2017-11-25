@@ -111,7 +111,6 @@ class RecorderViewController: UIViewController {
         
         print("\(#function)")
         
-        
         recorder?.stop()
         player?.stop()
         
@@ -161,9 +160,7 @@ class RecorderViewController: UIViewController {
             self.player = nil
             print(error.localizedDescription)
         }
-        
     }
-    
     
     func setupRecorder() {
         print("\(#function)")
@@ -277,33 +274,38 @@ class RecorderViewController: UIViewController {
     func deleteAllRecordings() {
         print("\(#function)")
         
-        let docsDir =
-            NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        
+
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
         let fileManager = FileManager.default
-        
-        do {
-            let files = try fileManager.contentsOfDirectory(atPath: docsDir)
-            var recordings = files.filter({ (name: String) -> Bool in
-                return name.hasSuffix("m4a")
-            })
-            for i in 0 ..< recordings.count {
-                let path = docsDir + "/" + recordings[i]
-                
-                print("removing \(path)")
-                do {
-                    try fileManager.removeItem(atPath: path)
-                } catch {
-                    NSLog("could not remove \(path)")
-                    print(error.localizedDescription)
+            do {
+                let files = try fileManager.contentsOfDirectory(at: documentsDirectory,
+                                                                includingPropertiesForKeys: nil,
+                                                                options: .skipsHiddenFiles)
+//                let files = try fileManager.contentsOfDirectory(at: documentsDirectory)
+                var recordings = files.filter({ (name: URL) -> Bool in
+                    return name.pathExtension == "m4a"
+//                    return name.hasSuffix("m4a")
+                })
+                for i in 0 ..< recordings.count {
+//                    let path = documentsDirectory.appendPathComponent(recordings[i], inDirectory: true)
+//                    let path = docsDir + "/" + recordings[i]
+                    
+//                    print("removing \(path)")
+                    print("removing \(recordings[i])")
+                    do {
+                        try fileManager.removeItem(at: recordings[i])
+                    } catch {
+                        print("could not remove \(recordings[i])")
+                        print(error.localizedDescription)
+                    }
                 }
+                
+            } catch {
+                print("could not get contents of directory at \(documentsDirectory)")
+                print(error.localizedDescription)
             }
-            
-        } catch {
-            print("could not get contents of directory at \(docsDir)")
-            print(error.localizedDescription)
-        }
-        
+
     }
     
     func askForNotifications() {
@@ -454,7 +456,7 @@ class RecorderViewController: UIViewController {
                 
                 try FileManager.default.removeItem(atPath: trimmedSoundFileURL.absoluteString)
             } catch {
-                NSLog("could not remove \(trimmedSoundFileURL)")
+                print("could not remove \(trimmedSoundFileURL)")
                 print(error.localizedDescription)
             }
             
@@ -462,7 +464,6 @@ class RecorderViewController: UIViewController {
         
         print("creating export session for \(asset)")
         
-        //FIXME: this is failing. the url looks ok, the asset is ok, the recording settings look ok, so wtf?
         if let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) {
             exporter.outputFileType = AVFileType.m4a
             exporter.outputURL = trimmedSoundFileURL
@@ -588,14 +589,15 @@ extension RecorderViewController: AVAudioRecorderDelegate {
         let alert = UIAlertController(title: "Recorder",
                                       message: "Finished Recording",
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Keep", style: .default, handler: {_ in
+        alert.addAction(UIAlertAction(title: "Keep", style: .default) {[unowned self] _ in
             print("keep was tapped")
             self.recorder = nil
-        }))
-        alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: {_ in
+        })
+        alert.addAction(UIAlertAction(title: "Delete", style: .default) {[unowned self] _ in
             print("delete was tapped")
             self.recorder.deleteRecording()
-        }))
+        })
+        
         self.present(alert, animated: true, completion: nil)
     }
     

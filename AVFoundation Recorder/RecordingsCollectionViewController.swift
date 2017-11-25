@@ -10,13 +10,13 @@ import UIKit
 import AVFoundation
 
 let reuseIdentifier = "recordingCell"
+
 // swiftlint:disable type_name
 
 class RecordingsCollectionViewController: UICollectionViewController {
     
     var recordings = [URL]()
     var player: AVAudioPlayer!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,23 +39,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
         doubleTap.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(doubleTap)
     }
-    
-    /**
-    Get the cell with which you interacted.
-    */
-//    func getCell(rec:UIGestureRecognizer) -> UICollectionViewCell {
-//        var cell:UICollectionViewCell!
-//        
-//        let p = rec.locationInView(self.collectionView)
-//        let indexPath = self.collectionView?.indexPathForItemAtPoint(p)
-//        if indexPath == nil {
-//            NSLog("couldn't find index path");
-//        } else {
-//            cell = self.collectionView?.cellForItemAtIndexPath(indexPath!)
-//            NSLog("found cell at \(indexPath!.row)")
-//        }
-//        return cell
-//    }
     
     @objc func doubleTap(_ rec: UITapGestureRecognizer) {
         if rec.state != .ended {
@@ -85,15 +68,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
     
     // MARK: UICollectionViewDataSource
     
@@ -107,16 +81,17 @@ class RecordingsCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
+        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? RecordingCollectionViewCell {
-        
+            
             cell.label.text = recordings[indexPath.row].lastPathComponent
-        
+            
             return cell
         }
         
         return UICollectionViewCell()
     }
+    
     
     // MARK: UICollectionViewDelegate
     
@@ -154,25 +129,6 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
     }
     
-    
-    
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    func collectionView(collectionView: UICollectionView!, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath!) -> Bool {
-    return false
-    }
-    
-    func collectionView(collectionView: UICollectionView!, canPerformAction action: String!, forItemAtIndexPath indexPath: NSIndexPath!, withSender sender: AnyObject!) -> Bool {
-    return false
-    }
-    
-    func collectionView(collectionView: UICollectionView!, performAction action: String!, forItemAtIndexPath indexPath: NSIndexPath!, withSender sender: AnyObject!) {
-    
-    }
-    */
-    
-    
-    
     func listRecordings() {
         
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -181,9 +137,8 @@ class RecordingsCollectionViewController: UICollectionViewController {
                                                                    includingPropertiesForKeys: nil,
                                                                    options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
             self.recordings = urls.filter({ (name: URL) -> Bool in
-                return name.lastPathComponent.hasSuffix("m4a")
+                return name.pathExtension == "m4a"
             })
-           
         } catch {
             print(error.localizedDescription)
             print("something went wrong listing recordings")
@@ -248,9 +203,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             self.listRecordings()
             self.collectionView?.reloadData()
         }
-        
     }
-
     
     func deleteRecording(_ url: URL) {
         
@@ -269,9 +222,8 @@ class RecordingsCollectionViewController: UICollectionViewController {
             self.collectionView?.reloadData()
         }
     }
-    
-    
 }
+
 
 extension RecordingsCollectionViewController: FileManagerDelegate {
 
