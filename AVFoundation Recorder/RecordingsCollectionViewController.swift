@@ -10,11 +10,12 @@ import UIKit
 import AVFoundation
 
 let reuseIdentifier = "recordingCell"
+// swiftlint:disable type_name
 
 class RecordingsCollectionViewController: UICollectionViewController {
     
     var recordings = [URL]()
-    var player:AVAudioPlayer!
+    var player: AVAudioPlayer!
     
     
     override func viewDidLoad() {
@@ -32,7 +33,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         recognizer.delaysTouchesBegan = true
         self.collectionView?.addGestureRecognizer(recognizer)
         
-        let doubleTap = UITapGestureRecognizer(target:self, action:#selector(RecordingsCollectionViewController.doubleTap(_:)))
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(RecordingsCollectionViewController.doubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
         doubleTap.numberOfTouchesRequired = 1
         doubleTap.delaysTouchesBegan = true
@@ -56,7 +57,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
 //        return cell
 //    }
     
-    func doubleTap(_ rec:UITapGestureRecognizer) {
+    @objc func doubleTap(_ rec: UITapGestureRecognizer) {
         if rec.state != .ended {
             return
         }
@@ -68,7 +69,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
     }
     
-    func longPress(_ rec:UILongPressGestureRecognizer) {
+    @objc func longPress(_ rec: UILongPressGestureRecognizer) {
         if rec.state != .ended {
             return
         }
@@ -107,11 +108,14 @@ class RecordingsCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecordingCollectionViewCell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? RecordingCollectionViewCell {
         
-        cell.label.text = recordings[indexPath.row].lastPathComponent
+            cell.label.text = recordings[indexPath.row].lastPathComponent
         
-        return cell
+            return cell
+        }
+        
+        return UICollectionViewCell()
     }
     
     // MARK: UICollectionViewDelegate
@@ -134,7 +138,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
 
     }
     
-    func play(_ url:URL) {
+    func play(_ url: URL) {
         print("playing \(url)")
 
         do {
@@ -176,7 +180,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             let urls = try FileManager.default.contentsOfDirectory(at: documentsDirectory,
                                                                    includingPropertiesForKeys: nil,
                                                                    options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-            self.recordings = urls.filter( { (name: URL) -> Bool in
+            self.recordings = urls.filter({ (name: URL) -> Bool in
                 return name.lastPathComponent.hasSuffix("m4a")
             })
            
@@ -187,47 +191,47 @@ class RecordingsCollectionViewController: UICollectionViewController {
         
     }
     
-    func askToDelete(_ row:Int) {
+    func askToDelete(_ row: Int) {
         let alert = UIAlertController(title: "Delete",
             message: "Delete Recording \(recordings[row].lastPathComponent)?",
             preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
             print("yes was tapped \(self.recordings[row])")
             self.deleteRecording(self.recordings[row])
         }))
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: {action in
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: {_ in
             print("no was tapped")
         }))
-        self.present(alert, animated:true, completion:nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    func askToRename(_ row:Int) {
+    func askToRename(_ row: Int) {
         let recording = self.recordings[row]
         
         let alert = UIAlertController(title: "Rename",
             message: "Rename Recording \(recording.lastPathComponent)?",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
-            [unowned alert] action in
+            [unowned alert] _ in
             print("yes was tapped \(self.recordings[row])")
-            if let textFields = alert.textFields{
+            if let textFields = alert.textFields {
                 let tfa = textFields as [UITextField]
                 let text = tfa[0].text
                 let url = URL(fileURLWithPath: text!)
                 self.renameRecording(recording, to: url)
             }
         }))
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: {action in
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: {_ in
             print("no was tapped")
         }))
         alert.addTextField(configurationHandler: {textfield in
             textfield.placeholder = "Enter a filename"
             textfield.text = "\(recording.lastPathComponent)"
         })
-        self.present(alert, animated:true, completion:nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    func renameRecording(_ from:URL, to:URL) {
+    func renameRecording(_ from: URL, to: URL) {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let toURL = documentsDirectory.appendingPathComponent(to.lastPathComponent)
         
@@ -240,7 +244,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             print(error.localizedDescription)
             print("error renaming recording")
         }
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.listRecordings()
             self.collectionView?.reloadData()
         }
@@ -248,7 +252,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
     }
 
     
-    func deleteRecording(_ url:URL) {
+    func deleteRecording(_ url: URL) {
         
         print("removing file at \(url.absoluteString)")
         let fileManager = FileManager.default
@@ -260,7 +264,7 @@ class RecordingsCollectionViewController: UICollectionViewController {
             print("error deleting recording")
         }
         
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.listRecordings()
             self.collectionView?.reloadData()
         }
@@ -279,7 +283,6 @@ extension RecordingsCollectionViewController: FileManagerDelegate {
     
 }
 
-extension RecordingsCollectionViewController : UIGestureRecognizerDelegate {
+extension RecordingsCollectionViewController: UIGestureRecognizerDelegate {
     
 }
-

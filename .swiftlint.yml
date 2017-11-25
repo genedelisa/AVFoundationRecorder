@@ -1,0 +1,61 @@
+included:
+  - AVFoundation Recorder
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - .build
+  - Carthage
+  - Pods
+
+disabled_rules: # rule identifiers to exclude from running
+  - todo
+  - identifier_name
+  - nesting
+  - function_parameter_count
+  - trailing_whitespace
+  - vertical_whitespace
+  - closure_parameter_position
+  - cyclomatic_complexity
+
+opt_in_rules: # some rules are only opt-in
+  - control_statement
+  - empty_count
+#  - trailing_newline
+  - colon
+  - comma
+#  - cyclomatic_complexity
+# Find all the available rules by running:
+# swiftlint rules
+
+identifier_name:
+  min_length: 1
+
+line_length: 510
+
+type_body_length:
+  - 300 # warning
+  - 400 # error
+
+# or they can set both explicitly
+file_length:
+  warning: 600
+  error: 1200
+
+large_tuple: # warn user when using 3 values in tuple, give error if there are 4
+  - 3
+  - 4
+
+# naming rules can set warnings/errors for min_length and max_length
+# additionally they can set excluded names
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 30
+    error: 35
+  excluded: iPhone # excluded via string
+
+cyclomatic_complexity:
+   warning: 5
+   error: 7
+
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)
+

@@ -17,6 +17,8 @@
 		B0266FE31BAEDF36009C7CB4 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = B0266FE21BAEDF36009C7CB4 /* .travis.yml */; };
 		B0266FE51BAEDFB0009C7CB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B0266FE41BAEDFB0009C7CB4 /* .gitignore */; };
 		B075BD97199C268800CDA3AB /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B075BD96199C268800CDA3AB /* RecorderViewController.swift */; };
+		B09CAD0F1FC9AE1D00F73166 /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = B09CAD0D1FC9AE1D00F73166 /* .swift-version */; };
+		B09CAD101FC9AE1D00F73166 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B09CAD0E1FC9AE1D00F73166 /* .swiftlint.yml */; };
 		B0A0D13A1B5593BF006FFCA1 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B0A0D1391B5593BF006FFCA1 /* LICENSE */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +48,8 @@
 		B0266FE21BAEDF36009C7CB4 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		B0266FE41BAEDFB0009C7CB4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B075BD96199C268800CDA3AB /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
+		B09CAD0D1FC9AE1D00F73166 /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
+		B09CAD0E1FC9AE1D00F73166 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B0A0D1391B5593BF006FFCA1 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +74,8 @@
 		B00518FB199BDB2E0070659F = {
 			isa = PBXGroup;
 			children = (
+				B09CAD0D1FC9AE1D00F73166 /* .swift-version */,
+				B09CAD0E1FC9AE1D00F73166 /* .swiftlint.yml */,
 				B0266FE41BAEDFB0009C7CB4 /* .gitignore */,
 				B0266FE21BAEDF36009C7CB4 /* .travis.yml */,
 				B0A0D1391B5593BF006FFCA1 /* LICENSE */,
@@ -136,6 +142,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0051920199BDB2E0070659F /* Build configuration list for PBXNativeTarget "AVFoundation Recorder" */;
 			buildPhases = (
+				B09CAD111FC9AE4A00F73166 /* ShellScript */,
 				B0051900199BDB2E0070659F /* Sources */,
 				B0051901199BDB2E0070659F /* Frameworks */,
 				B0051902199BDB2E0070659F /* Resources */,
@@ -175,18 +182,18 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Gene De Lisa";
 				TargetAttributes = {
 					B0051903199BDB2E0070659F = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 4UDK2944TW;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0910;
 					};
 					B0051915199BDB2E0070659F = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 4UDK2944TW;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0910;
 						TestTargetID = B0051903199BDB2E0070659F;
 					};
 				};
@@ -215,12 +222,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09CAD101FC9AE1D00F73166 /* .swiftlint.yml in Resources */,
 				B0266FE31BAEDF36009C7CB4 /* .travis.yml in Resources */,
 				B0A0D13A1B5593BF006FFCA1 /* LICENSE in Resources */,
 				B0266FE11BAEDEF1009C7CB4 /* Launch Screen.xib in Resources */,
 				B005190F199BDB2E0070659F /* Main.storyboard in Resources */,
 				B0266FE51BAEDFB0009C7CB4 /* .gitignore in Resources */,
 				B0051911199BDB2E0070659F /* Images.xcassets in Resources */,
+				B09CAD0F1FC9AE1D00F73166 /* .swift-version in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +241,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B09CAD111FC9AE4A00F73166 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B0051900199BDB2E0070659F /* Sources */ = {
@@ -283,14 +308,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -313,7 +344,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -330,14 +361,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -353,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -369,11 +406,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 4UDK2944TW;
 				INFOPLIST_FILE = "AVFoundation Recorder/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rockhoppertech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -384,11 +422,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 4UDK2944TW;
 				INFOPLIST_FILE = "AVFoundation Recorder/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rockhoppertech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -409,7 +448,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rockhoppertech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AVFoundation Recorder.app/AVFoundation Recorder";
 			};
 			name = Debug;
@@ -427,7 +467,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rockhoppertech.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AVFoundation Recorder.app/AVFoundation Recorder";
 			};
 			name = Release;

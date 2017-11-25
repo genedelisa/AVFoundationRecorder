@@ -6,7 +6,7 @@
 [![GitHub release](https://img.shields.io/github/release/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/)
 [![GitHub commits](https://img.shields.io/github/commits-since/genedelisa/AVFoundationRecorder/3.0.0.svg)
 
-[![Swift 3](https://img.shields.io/badge/swift3-compatible-4BC51D.svg?style=flat")](https://developer.apple.com/swift)
+[![Swift 4](https://img.shields.io/badge/swift4-compatible-4BC51D.svg?style=flat")](https://developer.apple.com/swift)
 
 
 [![Platforms iOS](https://img.shields.io/badge/Platforms-iOS-lightgray.svg?style=flat)](https://swift.org/)
@@ -16,7 +16,7 @@
 
 
 
-An audio recorder using AVFoundation updated for Swift 3.
+An audio recorder using AVFoundation updated for Swift 4.
 
 This will save recordings in Apple Lossless format. You can change the recording settings to another format if you'd like.
 
@@ -30,10 +30,7 @@ The recordings are shown in a CollectionView. The cells will respond to single t
 
 ## Bugs
 
-The trimming function doesn't work because AVAssetExportSession is not being created for some reason.
-There is a FIXME: tag for this in the source.
-Any ideas?
-
+None observed.
 
 [![GitHub issues](https://img.shields.io/github/issues/genedelisa/AVFoundationRecorder.svg)](https://github.com/genedelisa/AVFoundationRecorder/issues)
 
